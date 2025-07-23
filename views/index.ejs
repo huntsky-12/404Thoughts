@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Moral_Hamburger</title>
+  <link rel="stylesheet" href="/main.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <%- include('./partials/header.ejs') %>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8 text-side">
+        <div class="inner-content-box">
+          <p class="inbox-title" style="text-align:center; font-size:1.9rem">Latest Publication</p>
+
+          <% if (posts.length === 0) { %>
+            <p>Nothing to Show</p>
+          <% } else { %>
+            <% posts.forEach(function(post) { %>
+              <div class="post-box mb-3">
+                <p><strong>Title:</strong> <%= post.title %></p>
+                <p><strong>Author:</strong> <%= post.author %></p>
+                <p style="font-family: Georgia, 'Times New Roman', Times, serif; font-weight:500"><strong>Publication:</strong> <%= post.content %></p>
+
+                <div class="btn-group mt-2">
+                  <a href="/update/<%= post._id %>" class="btn btn-warning btn-sm">Update</a>
+          
+
+                  <form action="/delete/<%= post._id %>" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                  </form>
+                </div>
+              </div>
+            <% }) %>
+          <% } %>
+
+          <!-- Wanna Share Button stays at the bottom -->
+          <div class="share-btn-container text-center mt-4">
+            <a href="/create" class="btn btn-warning1 btn-sm">Wanna Share a Story</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 image-side p-0">
+        <img src="/img_res.png" alt="Image" class="img-fluid">
+      </div>
+    </div>
+  </div>
+
+  <%- include('./partials/footer.ejs') %>
+</body>
+</html>
