@@ -27,7 +27,7 @@
                 <p style="font-family: Georgia, 'Times New Roman', Times, serif; font-weight:500"><strong>Publication:</strong> <%= post.content %></p>
 
                 <div class="btn-group mt-2">
-                  <a href="/update?index=<%= index %>" class="btn btn-warning btn-sm">Update</a>     
+                  <a href="/update?index=<%= post._id %>" class="btn btn-warning btn-sm">Update</a>     
                   <form action="/delete/<%= post._id %>" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');" style="display:inline;">
                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                   </form>

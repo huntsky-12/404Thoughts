@@ -49,21 +49,21 @@ app.post("/create",async (req,res)=>{
     res.status(500).send("Failed to save post.");
     }
 });
-app.post("/delete", async(req,res)=>{
-    const {index}=req.body;// here body as we want entire body to get deleted.
-    try{
-      await Post.findByIdAndDelete(index);
-      res.redirect("/");
-    }catch(err){
-      console.error(err);
-      res.status(500).send("Failed to Delete post.");// server internal error
-    }
-    
-})
-app.get("/update", async (req, res) => {
-  const { index } = req.query;
+app.post("/delete/:id", async (req, res) => {
+  const { id } = req.params;
   try {
-    const post = await Post.findById(index);
+    await Post.findByIdAndDelete(id);
+    res.redirect("/");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Failed to delete post.");
+  }
+});
+
+app.get("/update", async (req, res) => {
+  const id = req.query.index; 
+  try {
+    const post = await Post.findById(id);
     if (!post) return res.status(404).send("Post not found");
     res.render("partials/edit.ejs", { post, page: "edit" });
   } catch (err) {

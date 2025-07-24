@@ -10,7 +10,7 @@
   <div class="container mt-4">
     <h2>Edit Blog Post</h2>
     <form action="/update" method="POST">
-      <input type="hidden" name="index" value="<%= index %>">
+      <input type="hidden" name="id" value="<%= post.id%>">
       <div class="form-group">
         <label>Title:</label>
         <input type="text" name="title" class="form-control" value="<%= post.title %>" required>
