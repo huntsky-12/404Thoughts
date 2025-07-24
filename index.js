@@ -25,14 +25,15 @@ app.post("/delete",(req,res)=>{
     posts.splice(index,1);
     res.redirect("/");
 })
-app.get("/update/:id", (req, res) => {
-    const postId = req.params.id;
-    const post = posts.find(p => p._id === postId); // Assuming posts is an array
+app.get("/update", (req, res) => {
+    const index = req.query.index; // Use query instead of body
+    const post = posts[index]; // Assuming posts is an array
     if (!post) {
         return res.status(404).send("Post not found");
     }
-    res.render("index.ejs", { post }); // edit.ejs should contain the edit form
+    res.render("edit.ejs", { post, index }); // You probably meant to render an edit form
 });
+
 
 
 const PORT = process.env.PORT || 3000;
