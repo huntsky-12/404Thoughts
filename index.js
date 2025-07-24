@@ -25,13 +25,16 @@ app.post("/delete",(req,res)=>{
     posts.splice(index,1);
     res.redirect("/");
 })
-app.get("/update/:id", (req, res) => {
-    const postId = req.params.id;
-    const post = posts.find(p => p._id === postId); // Assuming posts is an array
-    if (!post) {
-        return res.status(404).send("Post not found");
-    }
-    res.render("index.ejs", { post }); // edit.ejs should contain the edit form
+app.get('/update', (req, res) => {
+  const i = req.query.index;
+  if (!posts[i]) return res.status(404).send('Post not found');
+  res.render('partials/edit.ejs', { post: posts[i], index: i }); // ✅ CORRECT template
+});
+
+app.post("/update", (req, res) => {
+    const { index, title, author, content } = req.body;
+    posts[index] = { title, author, content };
+    res.redirect("/");
 });
 
 
