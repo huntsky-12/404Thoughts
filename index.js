@@ -26,12 +26,12 @@ app.post("/delete",(req,res)=>{
     res.redirect("/");
 })
 app.get("/update", (req, res) => {
-    const index = req.query.index; // Use query instead of body
-    const post = posts[index]; // Assuming posts is an array
+    const index = req.query.index; 
+    const post = posts[index];
     if (!post) {
         return res.status(404).send("Post not found");
     }
-    res.render("edit.ejs", { post, index }); // You probably meant to render an edit form
+    res.render("create.ejs", { post, index }); 
 });
 
 
