@@ -31,7 +31,7 @@ app.get("/update", (req, res) => {
     if (!post) {
         return res.status(404).send("Post not found");
     }
-    res.render("create.ejs", { post, index }); 
+    res.render("index.ejs", { post, index }); 
 });
 
 
