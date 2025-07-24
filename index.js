@@ -25,13 +25,10 @@ app.post("/delete",(req,res)=>{
     posts.splice(index,1);
     res.redirect("/");
 })
-app.get("/update", (req, res) => {
-    const index = req.query.index; 
-    const post = posts[index];
-    if (!post) {
-        return res.status(404).send("Post not found");
-    }
-    res.render("index.ejs", { post, index }); 
+app.get('/update', (req, res) => {
+  const i = req.query.index;
+  if (!posts[i]) return res.status(404).send('Not found');
+  res.render('edit.ejs', { post: posts[i], index: i });
 });
 app.post("/update", (req, res) => {
     const { index, title, author, content } = req.body;
