@@ -33,6 +33,11 @@ app.get("/update", (req, res) => {
     }
     res.render("index.ejs", { post, index }); 
 });
+app.post("/update", (req, res) => {
+    const { index, title, author, content } = req.body;
+    posts[index] = { title, author, content };
+    res.redirect("/");
+});
 
 
 
