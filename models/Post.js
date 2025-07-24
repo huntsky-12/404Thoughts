@@ -1,5 +1,5 @@
-require('dotenv').config();
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+
 
 const postSchema= new mongoose.Schema({
   title: String, 
@@ -8,4 +8,5 @@ const postSchema= new mongoose.Schema({
   date: { type: Date, default: Date.now },
 
 });
-module.export=mongoose.model("Post",postSchema)
+const Post = mongoose.model("Post", postSchema);
+export default Post;

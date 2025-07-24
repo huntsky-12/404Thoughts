@@ -11,7 +11,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));//used to parse incoming form data (like from <form method="POST">) and make it available in req.body.
 app.use(express.static("public"));//Without this line, your CSS/JS won't load in the browser.
 app.set("view engine", "ejs");// This tells Express to use EJS (Embedded JavaScript) as your templating engine for dynamic html.
-
+console.log("Connecting to:", process.env.MONGO_URI);
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -25,7 +25,7 @@ mongoose.connect(process.env.MONGO_URI, {
 app.get("/", async (req, res) => {
   try {
     const posts = await Post.find().sort({ date: -1 });
-    res.render("index.ejs", { posts });
+    res.render("index.ejs", { posts, page: "home" }); 
   } catch (err) {
     console.error(err);
     res.status(500).send("Error loading posts.");
@@ -61,16 +61,17 @@ app.post("/delete", async(req,res)=>{
     
 })
 app.get("/update", async (req, res) => {
-  const { index } = req.query; // we r using query here not body as we have search the data and not modify ,modification will happen in post update
+  const { index } = req.query;
   try {
     const post = await Post.findById(index);
     if (!post) return res.status(404).send("Post not found");
-    res.render("partials/edit.ejs", { post });
+    res.render("partials/edit.ejs", { post, page: "edit" });
   } catch (err) {
     console.error(err);
     res.status(500).send("Error loading update form.");
   }
 });
+
 app.post("/update", async (req,res)=>{
   const {id,title,author,content}=req.body;
   try{

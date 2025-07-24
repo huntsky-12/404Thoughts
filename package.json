@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Personal blog platform using Node.js and Express",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node index.js"
   },
